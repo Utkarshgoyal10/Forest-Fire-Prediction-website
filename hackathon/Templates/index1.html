@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
+  <title>Forest Fire Prediction</title>
+  <link rel="icon" href=" ">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+  <link rel="stylesheet" href="style.css">
+  <link rel="shortcut icon" href="android-chrome-512x512.png" type="image/x-icon">
+
+
+</head>
+
+<body>
+  <video id="b4" autoplay  loop muted>
+    <source src="{{ url_for('static', filename='vv.mp4') }}" type="video/mp4">
+
+  </video>
+    <div class="container justify-content-center mt-2">
+        <h1 class="text-light mt-2 fs-1 fw-bolder " style="padding-top: 20px;">Forest Fire Prediction</h1> 
+        <form action='#' method="post" id="form" name="predictor">
+         <div class="row ">
+           <div class="col-sm-12 col-lg-6 mainnn ">
+             <div class="row">
+              <div class="col-12  mb-1">
+                <div class="form-group">
+                  <label for="temperature  text-light text-bolder fw-bolder fs-1">Temperature</label>
+                  <input  class="form-control validate border border-warning  shadow shadow-warning" required placeholder="Temperature in Celsius" name="Temperature" onkeyup="checkform()" id="temp" type="text" >
+                </div>
+               </div>
+               <div class="col-12 mb-3">
+                <label for="windspeed h2">Wind Speed</label> 
+                <input id="wind" name="Windspeed" onkeyup="checkform()" placeholder="Oxygen content in ppm"  type="text" class="validate form-control border border-warning" required>
+               </div>
+               <div class="col-12 mb-3">
+                <label for="fuel h2">Fuel Moisture Code</label>
+                <input  id="fuel" name="Fuel Moisture Code" onkeyup="checkform()" placeholder="FFMC" type="text" class="validate form-control border border-warning" required>
+               </div>
+               <div class="col-12 mb-3">
+                <label for="duff h2">Duff Moisture Code</label>
+                <input  id="duff" name="Duff Moisture Code"  onkeyup="checkform()"placeholder="DMC" type="text" class="validate form-control border border-warning" required>
+               </div>
+               <div class="col-12 mb-3">
+                <label for="spread h2">Initial Spread Index</label>
+                <input  id="spread" name="Initial Spread Index" onkeyup="checkform()" placeholder="ISI" type="text" class="validate form-control border border-warning" required>
+               </div>
+               <div class="col-12 mb-3">
+                <label for="file h2">Select the image</label>
+                <input  id="imageupload" name="Image"   type="file" class="validate form-control border border-warning" accept="image/*">
+               </div>
+               <div class="ml-3 mb-1 mt-2">
+                 <button onclick="displayDiv()" value="predict probability" type="button" id="button" class="button text-bolder  h4" disabled="disabled">Predict Probability</button>
+              </div>
+             </div>
+           </div>
+           <div class="col-sm-12 col-lg-4  d-flex align-items-center">
+            <!-- <img src="https://i.pinimg.com/originals/38/7c/58/387c58967b7627f91c8678ea02dc3c84.jpg" alt="" srcset="" id="b3"> -->
+            <!-- <video class="b3" autoplay controls loop>
+              <source src="video.mp4" type="video/mp4">
+            </video> -->
+            <h4 class=" fs-2 text-light text-bold" id="prediction" style="display: none; ">{{pred}}</h4>
+           </div>
+         </div>
+        </form>
+        </div>
+        <script type="text/javascript">
+          var f=document.forms['predictor'].elements;
+          console.log(f);
+            function checkform(){
+                var f=document.forms['predictor'].elements;
+                var field =true;
+                for(var i=0;i<f.length-2;i++){
+                    if(f[i].value.length == 0)
+                    field=false;
+                }
+                if(field){
+                    document.getElementById("button").disabled=false;
+                }else{
+                    document.getElementById("button").disabled=true;
+                }
+
+            }
+          
+            const imageUpload = document.getElementById('imageupload');
+            const submitButton = document.getElementById('button');
+            imageUpload.addEventListener('change', function() {
+        
+          if (imageUpload.files.length > 0) {
+           submitButton.disabled = false;
+           } else {
+            submitButton.disabled = true;
+           }
+});
+        function displayDiv(){
+        document.getElementById("prediction").style.display="block";
+        document.getElementById("b3").style.display="none";
+
+        }
+    
+          
+    </script>
+    <!-- <script>
+      const imageInput = document.getElementById('image');
+    
+      imageInput.addEventListener('change', (event) => {
+        const selectedImage = event.target.files[0];
+        // Do something with the selected image
+        console.log(selectedImage);
+      });
+    </script> -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+</body>
+</html>
